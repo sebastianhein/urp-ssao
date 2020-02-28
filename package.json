@@ -1,5 +1,5 @@
 {
-  "name": "com.unity.urp_ssao",
+  "name": "com.unity.urp-ssao",
   "version": "0.1.0-preview",
   "displayName": "URP Screen Space Ambient Occlusion",
   "unity": "2019.1",
