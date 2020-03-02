@@ -14,9 +14,9 @@ public class SSAO : ScriptableRendererFeature
 
         [Range(0,2)] public float totalStrength = 1.1f;
         [Range(0,1)] public float brightnessCorrection = 0.0f;
-        [Range(0.01f, 2)] public float area = 0.55f;
+        [Range(0.01f, 5)] public float area = 0.55f;
         public float falloff = 0.0001f;
-        [Range(0.01f, 0.5f)] public float radius = 0.04f;
+        [Range(0.01f, 2.5f)] public float radius = 0.04f;
         public bool debug = false;
     }
 
