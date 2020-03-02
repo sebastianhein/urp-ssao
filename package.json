@@ -4,5 +4,5 @@
   "displayName": "URP Screen Space Ambient Occlusion",
   "unity": "2019.1",
   "description": "Proof of concept implementation of SSAO as a RendererFeature.",
-  "dependencies": {}
+  "type": "sample"
 }

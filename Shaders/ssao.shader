@@ -49,6 +49,7 @@
             float _Area;
             float _Falloff;
             float _Radius;  
+            float _Debug;
 
             v2f vert (appdata v)
             {
@@ -114,7 +115,12 @@
                 
                 float ao = 1.0 - _TotalStrength * occlusion * (1.0 / samples);
                 fixed4 color;
-                color.rgb =  saturate(ao + _Base) * tex2D( _MainTex, input.uv ).rgb;
+                color.rgb =  saturate(ao + _Base);//  * tex2D( _MainTex, input.uv ).rgb;
+
+                if (_Debug > 0) {
+                    color.rgb *= tex2D( _MainTex, input.uv ).rgb;
+                }
+
                 return color;
             }
             ENDCG

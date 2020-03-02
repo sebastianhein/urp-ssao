@@ -86,8 +86,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _AlphaClip: 0
-    - _Area: 0.4
-    - _Base: -0.37
+    - _Area: 0.18
+    - _Base: 0
     - _Blend: 0
     - _BumpScale: 1
     - _Cull: 2
@@ -95,7 +95,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
-    - _Falloff: 0.0001
+    - _Falloff: 0.001
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -104,14 +104,14 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueOffset: 0
-    - _Radius: 0.003
+    - _Radius: 0.036
     - _ReceiveShadows: 1
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _TotalStrength: 0.5
+    - _TotalStrength: 1.7
     - _UVSec: 0
     - _WorkflowMode: 1
     - _ZWrite: 1

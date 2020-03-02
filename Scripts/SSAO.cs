@@ -11,11 +11,12 @@ public class SSAO : ScriptableRendererFeature
         public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingOpaques;
         public Material ssaoMaterial = null;
 
-        [Range(0,1)] public float totalStrength = 0.5f;
+        [Range(0,2)] public float totalStrength = 0.5f;
         [Range(0,1)] public float brightnessCorrection = -0.37f;
         [Range(0.01f, 2)] public float area = 0.4f;
         public float falloff = 0.0001f;
         [Range(0.01f, 0.5f)] public float radius = 0.003f;
+        public bool debug = false;
     }
 
     public SSAOSettings settings = new SSAOSettings();
@@ -28,9 +29,9 @@ public class SSAO : ScriptableRendererFeature
         public float area;
         public float falloff;
         public float radius;
+        public bool debug;
 
         string profilerTag;
-        int tmpId1;
         RenderTargetIdentifier tmpRT1;
         
         private RenderTargetIdentifier source { get; set; }
@@ -49,14 +50,18 @@ public class SSAO : ScriptableRendererFeature
             var width = cameraTextureDescriptor.width;
             var height = cameraTextureDescriptor.height;
 
-            tmpId1 = Shader.PropertyToID("ssao_RT");
-            cmd.GetTemporaryRT(tmpId1, width, height, 0, FilterMode.Bilinear, RenderTextureFormat.ARGB32);
-            tmpRT1 = new RenderTargetIdentifier(tmpId1);            
+            int tmpId = Shader.PropertyToID("ssao_RT");
+            cmd.GetTemporaryRT(tmpId, width, height, 0, FilterMode.Bilinear, RenderTextureFormat.ARGB32);
+            tmpRT1 = new RenderTargetIdentifier(tmpId);            
             ConfigureTarget(tmpRT1);
         }
 
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
         {
+            if (ssaoMaterial == null) {
+                return;
+            }
+
             CommandBuffer cmd = CommandBufferPool.Get(profilerTag);
 
             RenderTextureDescriptor opaqueDesc = renderingData.cameraData.cameraTargetDescriptor;
@@ -67,7 +72,8 @@ public class SSAO : ScriptableRendererFeature
             ssaoMaterial.SetFloat("_Area", area);
             ssaoMaterial.SetFloat("_Falloff", falloff);
             ssaoMaterial.SetFloat("_Radius", radius);
-            
+            ssaoMaterial.SetFloat("_Debug", debug?0.0f:1.0f);
+
             Blit(cmd, source, tmpRT1, ssaoMaterial, 0);
             Blit(cmd, tmpRT1, source);
    
@@ -91,6 +97,7 @@ public class SSAO : ScriptableRendererFeature
         scriptablePass.area = settings.area;
         scriptablePass.falloff = settings.falloff;
         scriptablePass.radius = settings.radius;
+        scriptablePass.debug = settings.debug;
 
         scriptablePass.renderPassEvent = settings.renderPassEvent;
     }
