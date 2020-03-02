@@ -1,8 +1,8 @@
 {
-  "name": "com.unity.urp-ssao",
+  "name": "com.sbstn_hn.rendererfeatures.urp-ssao",
   "version": "0.1.0-preview",
   "displayName": "URP Screen Space Ambient Occlusion",
   "unity": "2019.1",
   "description": "Proof of concept implementation of SSAO as a RendererFeature.",
-  "type": "sample"
+  "type": "sample"  
 }

@@ -11,11 +11,11 @@ public class SSAO : ScriptableRendererFeature
         public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingOpaques;
         public Material ssaoMaterial = null;
 
-        [Range(0,2)] public float totalStrength = 0.5f;
-        [Range(0,1)] public float brightnessCorrection = -0.37f;
-        [Range(0.01f, 2)] public float area = 0.4f;
+        [Range(0,2)] public float totalStrength = 1.1f;
+        [Range(0,1)] public float brightnessCorrection = 0.0f;
+        [Range(0.01f, 2)] public float area = 0.55f;
         public float falloff = 0.0001f;
-        [Range(0.01f, 0.5f)] public float radius = 0.003f;
+        [Range(0.01f, 0.5f)] public float radius = 0.04f;
         public bool debug = false;
     }
 
