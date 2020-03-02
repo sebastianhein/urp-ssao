@@ -9,7 +9,8 @@ public class SSAO : ScriptableRendererFeature
     public class SSAOSettings
     {
         public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingOpaques;
-        public Material ssaoMaterial = null;
+
+        public Material ssaoMaterial;
 
         [Range(0,2)] public float totalStrength = 1.1f;
         [Range(0,1)] public float brightnessCorrection = 0.0f;
@@ -100,6 +101,14 @@ public class SSAO : ScriptableRendererFeature
         scriptablePass.debug = settings.debug;
 
         scriptablePass.renderPassEvent = settings.renderPassEvent;
+
+        #if UNITY_EDITOR
+            if (!Application.isPlaying)
+            {
+                ResourceReloader.TryReloadAllNullIn(this, UniversalRenderPipelineAsset.packagePath);
+                ResourceReloader.TryReloadAllNullIn(postProcessData, UniversalRenderPipelineAsset.packagePath);
+            }
+        #endif
     }
 
     public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)

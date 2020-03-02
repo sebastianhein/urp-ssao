@@ -115,7 +115,7 @@
                 
                 float ao = 1.0 - _TotalStrength * occlusion * (1.0 / samples);
                 fixed4 color;
-                color.rgb =  saturate(ao + _Base);//  * tex2D( _MainTex, input.uv ).rgb;
+                color.rgb =  saturate(ao + _Base);
 
                 if (_Debug > 0) {
                     color.rgb *= tex2D( _MainTex, input.uv ).rgb;

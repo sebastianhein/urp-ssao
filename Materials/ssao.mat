@@ -86,8 +86,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _AlphaClip: 0
-    - _Area: 0.53
-    - _Base: 0
+    - _Area: 0.55
+    - _Base: 0.083
     - _Blend: 0
     - _BumpScale: 1
     - _Cull: 2
@@ -104,14 +104,14 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueOffset: 0
-    - _Radius: 0.038
+    - _Radius: 0.04
     - _ReceiveShadows: 1
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _TotalStrength: 1.14
+    - _TotalStrength: 1.23
     - _UVSec: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
