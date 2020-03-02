@@ -101,14 +101,6 @@ public class SSAO : ScriptableRendererFeature
         scriptablePass.debug = settings.debug;
 
         scriptablePass.renderPassEvent = settings.renderPassEvent;
-
-        #if UNITY_EDITOR
-            if (!Application.isPlaying)
-            {
-                ResourceReloader.TryReloadAllNullIn(this, UniversalRenderPipelineAsset.packagePath);
-                ResourceReloader.TryReloadAllNullIn(postProcessData, UniversalRenderPipelineAsset.packagePath);
-            }
-        #endif
     }
 
     public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
