@@ -25,10 +25,8 @@ SSAO inactive
 * "Add package from git URL"
 * paste "https://github.com/sebastianhein/urp-ssao.git" into the input field
 * add new SSAO RendererFeature to the URP settings 
-* manually assign "ssao" material to the feature settings
 * "depth texture" must be enabled in the URP settings
 
 ### Known issues/TODOs:
 * HDR doesn't work, the SSAO effect uses RGBA32 rendertexture. Needs a check if the current camera target is HDR enabled.
-* The material does not get assiged automatically on creation of the RendererFeature.
 

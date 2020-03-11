@@ -3,14 +3,13 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
+[ReloadGroup]
 public class SSAO : ScriptableRendererFeature
 {
     [System.Serializable]
     public class SSAOSettings
     {
         public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingOpaques;
-
-        public Material ssaoMaterial;
 
         [Range(0,2)] public float totalStrength = 1.1f;
         [Range(0,1)] public float brightnessCorrection = 0.0f;
@@ -22,9 +21,12 @@ public class SSAO : ScriptableRendererFeature
 
     public SSAOSettings settings = new SSAOSettings();
 
+    [ReloadGroup]
     class CustomRenderPass : ScriptableRenderPass
     {
-        public Material ssaoMaterial;
+        [Reload("Materials/ssao.mat")]
+        public Material ssaoMaterial = null;
+        // public Material upsampleMaterial;
         public float totalStrength;
         public float brightnessCorrection;
         public float area;
@@ -38,6 +40,13 @@ public class SSAO : ScriptableRendererFeature
         private RenderTargetIdentifier source { get; set; }
 
         public void Setup(RenderTargetIdentifier source) {
+#if UNITY_EDITOR
+            if (!Application.isPlaying)
+            {
+                ResourceReloader.TryReloadAllNullIn(this, "Packages/com.sbstn_hn.rendererfeatures.urp-ssao");
+            }
+#endif 
+            
             this.source = source;
         }
 
@@ -63,6 +72,10 @@ public class SSAO : ScriptableRendererFeature
                 return;
             }
 
+            // if (upsampleMaterial == null) {
+            //     return;
+            // }
+
             CommandBuffer cmd = CommandBufferPool.Get(profilerTag);
 
             RenderTextureDescriptor opaqueDesc = renderingData.cameraData.cameraTargetDescriptor;
@@ -75,7 +88,10 @@ public class SSAO : ScriptableRendererFeature
             ssaoMaterial.SetFloat("_Radius", radius);
             ssaoMaterial.SetFloat("_Debug", debug?0.0f:1.0f);
 
+            // calculate SSAO and store in a temporary texture
             Blit(cmd, source, tmpRT1, ssaoMaterial, 0);
+
+            // blit thee result to the framebuffer
             Blit(cmd, tmpRT1, source);
    
             context.ExecuteCommandBuffer(cmd);
@@ -92,7 +108,7 @@ public class SSAO : ScriptableRendererFeature
     public override void Create()
     {
         scriptablePass = new CustomRenderPass("SSAO");
-        scriptablePass.ssaoMaterial = settings.ssaoMaterial;
+
         scriptablePass.totalStrength = settings.totalStrength;
         scriptablePass.brightnessCorrection = settings.brightnessCorrection;
         scriptablePass.area = settings.area;
